@@ -11,19 +11,19 @@ const signupContent = {
     inputs: [
         {
             label: "Full name",
-            icon: "",
+            name: "name",
             type: "text",
             placeholder: "Enter your name"
         },
         {
             label: "Email address",
-            icon: "",
+            name: "email",
             type: "text",
             placeholder: "Enter your email"
         },
         {
             label: "Password",
-            icon: "",
+            name: "password",
             type: "password",
             placeholder: "Create a password"
         }
