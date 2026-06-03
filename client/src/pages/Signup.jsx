@@ -1,11 +1,82 @@
 import React from 'react'
+import { api } from '../api/axios';
 import { AccountBtn } from '../components/AccountBtn';
 import { signupContent } from '../utils/signupContent';
+import { useState } from 'react';
+import { validateSignup } from '../utils/validateSignup';
+import toast from "react-hot-toast";
 
 const Signup = () => {
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        password: ""
+    });
+
+    const handleChange = (e) => {
+        setFormData((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const validationErrors = validateSignup(formData);
+
+        if (Object.keys(validationErrors).length > 0) {
+            toast.error(
+                Object.values(validationErrors)[0],
+                {
+                    id: "validation-error"
+                }
+            );
+
+            return;
+        }
+
+        try {
+            const res = await api.post("/api/user", formData);
+
+            toast.success(
+                "Account created successfully.",
+                {
+                    id: "success"
+                }
+            );
+
+            console.log(res.data);
+
+            // Reset form after successful submission
+            setFormData({
+                name: "",
+                email: "",
+                password: ""
+            });
+
+        } catch (err) {
+            toast.error(
+                err.response?.data?.message ||
+                "Signup failed",
+                {
+                    id: "api-error"
+                }
+            );
+        }
+
+        setFormData({
+            name: "",
+            email: "",
+            password: ""
+        });
+    };
+
     return (
         <div className='w-screen h-screen flex items-center justify-center inter-font'>
-            <div className='flex flex-col items-center justify-center px-8 py-2 gap-4 border-1 border-amber-100 rounded-xl'>
+            <form
+                onSubmit={handleSubmit}
+                className='flex flex-col items-center justify-center px-8 py-2 gap-4 border-1 border-amber-100 rounded-xl'>
                 <div className='flex flex-col items-center gap-2'>
                     <img src={signupContent.img} alt="" className='w-25 h-25 rounded-full' />
                     <div className='flex flex-col items-center'>
@@ -24,7 +95,14 @@ const Signup = () => {
                             <div key={idx} className='flex flex-col gap-1 text-sm w-full'>
                                 <label htmlFor={`input-${idx}`} className='text-gray-300'>{item.label}</label>
 
-                                <input id={`input-${idx}`} type={item.type} placeholder={item.placeholder} className='border-1 focus:border-2 px-2 py-3 rounded-xl w-full min-w-[300px] outline-none' />
+                                <input id={`input-${idx}`}
+                                    name={item.name}
+                                    type={item.type}
+                                    placeholder={item.placeholder}
+                                    onChange={handleChange}
+                                    value={formData[item.name] || ""}
+                                    autoComplete='off'
+                                    className='border-1 focus:border-2 px-2 py-3 rounded-xl w-full min-w-[300px] outline-none' />
                             </div>
                         ))}
                     </div>
@@ -45,7 +123,7 @@ const Signup = () => {
                         <h3 className='text-blue-600 cursor-pointer'>{signupContent.signinLinkText}</h3>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     )
 }
