@@ -22,9 +22,11 @@ app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 app.use(cookieParser());
 
 // Routes
-import authRoutes from "./routes/signup.routes.js";
+import signupRoute from "./routes/signup.routes.js";
+import loginRoute from "./routes/login.routes.js";
 
-app.use("/api", authRoutes);
+app.use("/api", signupRoute);
+app.use("/api", loginRoute);
 
 (async () => {
   try {
