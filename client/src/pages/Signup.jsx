@@ -5,8 +5,11 @@ import { signupContent } from '../utils/signupContent';
 import { useState } from 'react';
 import { validateSignup } from '../utils/validateSignup';
 import toast from "react-hot-toast";
+import { Link, useNavigate  } from 'react-router-dom';
 
 const Signup = () => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -37,7 +40,7 @@ const Signup = () => {
         }
 
         try {
-            const res = await api.post("/api/user", formData);
+            const res = await api.post("/api/signup", formData);
 
             toast.success(
                 "Account created successfully.",
@@ -47,6 +50,12 @@ const Signup = () => {
             );
 
             console.log(res.data);
+
+            if(res.status === 201 || res.status === 200) {
+                setTimeout(() => navigate("/dashboard"), 500);
+            } else {
+                toast.error("Something went wrong.");
+            }
 
             // Reset form after successful submission
             setFormData({
@@ -111,7 +120,7 @@ const Signup = () => {
                         <h3>{signupContent.forgot}</h3>
                     </div>
 
-                    <div className='pt-4'>
+                    <div className='pt-4 active:scale-95 transition'>
                         <AccountBtn
                             text={signupContent.button.text}
                             type={signupContent.button.type}
@@ -120,7 +129,7 @@ const Signup = () => {
 
                     <div className='flex gap-1 justify-center'>
                         <h2 className='text-gray-500'>{signupContent.signinQuery}</h2>
-                        <h3 className='text-blue-600 cursor-pointer'>{signupContent.signinLinkText}</h3>
+                        <Link to="/login"><h3 className='text-blue-600 cursor-pointer'>{signupContent.signinLinkText}</h3></Link>
                     </div>
                 </div>
             </form>

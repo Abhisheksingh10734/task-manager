@@ -4,6 +4,7 @@ import { loginContent } from "../utils/loginContent";
 import { api } from "../api/axios";
 import { validateLogin } from "../utils/validateLogin";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const Login = () => {
     const [formData, setFormData] = useState({ email: "", password: "" });
@@ -102,9 +103,9 @@ const Login = () => {
                         <h2 className="text-gray-500">
                             {loginContent.signupQuery}
                         </h2>
-                        <h3 className="text-blue-600 cursor-pointer">
+                        <Link to="/"><h3 className="text-blue-600 cursor-pointer">
                             {loginContent.signupLinkText}
-                        </h3>
+                        </h3></Link>
                     </div>
                 </div>
             </form>
