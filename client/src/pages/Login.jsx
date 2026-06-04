@@ -25,7 +25,7 @@ const Login = () => {
         }
 
         try {
-            const res = await api.post("/api/user", formData);
+            const res = await api.post("/api/login", formData);
             toast.success("Login successful");
             console.log(res.data);
         } catch (err) {
