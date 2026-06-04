@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import db from "./db/index.js";
+// import { verifyAuth } from "./middlewares/auth.middlewares.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -24,9 +25,11 @@ app.use(cookieParser());
 // Routes
 import signupRoute from "./routes/signup.routes.js";
 import loginRoute from "./routes/login.routes.js";
+import dashboardRoute from "./routes/dashboard.routes.js";
 
 app.use("/api", signupRoute);
 app.use("/api", loginRoute);
+app.use("/api/dashboard", dashboardRoute);
 
 (async () => {
   try {
