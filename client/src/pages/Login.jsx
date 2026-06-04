@@ -4,9 +4,11 @@ import { loginContent } from "../utils/loginContent";
 import { api } from "../api/axios";
 import { validateLogin } from "../utils/validateLogin";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({ email: "", password: "" });
 
     const handleChange = (e) => {
@@ -25,9 +27,12 @@ const Login = () => {
         }
 
         try {
-            const res = await api.post("/api/user", formData);
+            const res = await api.post("/api/login", formData);
             toast.success("Login successful");
             console.log(res.data);
+
+                setTimeout(() => navigate("/dashboard"), 500);
+
         } catch (err) {
             toast.error(err.response?.data?.message || "Login failed");
         }
