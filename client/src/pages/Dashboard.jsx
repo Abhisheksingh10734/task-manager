@@ -1,26 +1,14 @@
 import React from 'react'
-import { cardContent } from '../utils/dashboardCardsContent';
-import { Navbar } from '../components/Navbar';
-import { AddTaskBtn } from '../components/AddTaskBtn';
 import { TaskInfoCard } from '../components/TaskInfoCard';
-import { Searchbar } from '../components/Searchbar';
 import { PiChart } from '../components/PiChart';
+import { Searchbar } from '../components/Searchbar';
 
-export const Dashboard = () => {
+export const Dashboard = (props) => {
   return (
-    <div className='inter-font px-4 py-2 flex flex-col gap-6'>
-
-      <AddTaskBtn/>
-
-      <Navbar />
-
-      <div className='h-[72px]' />
-
-      <Searchbar />
-
-      <TaskInfoCard/>
-
-      <PiChart />
-    </div>
+    <>
+      <Searchbar/>
+      <TaskInfoCard totalTaskCount={props.totalTaskCount} highPriorityCount={props.highPriorityCount} pendingCount={props.pendingCount} completedCount={props.completedCount}/>
+      <PiChart totalTaskCount={props.totalTaskCount} highPriorityCount={props.highPriorityCount} pendingCount={props.pendingCount} completedCount={props.completedCount}/>
+    </>
   )
 }

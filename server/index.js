@@ -26,10 +26,20 @@ app.use(cookieParser());
 import signupRoute from "./routes/signup.routes.js";
 import loginRoute from "./routes/login.routes.js";
 import dashboardRoute from "./routes/dashboard.routes.js";
+import createTaskRoute from "./routes/createTask.routes.js";
+import getTasks from "./routes/getTasks.routes.js";
+import editTask from "./routes/editTask.routes.js";
+import updateTask from "./routes/updateTask.routes.js";
+import getTaskStats from "./routes/getTaskStats.routes.js";
 
 app.use("/api", signupRoute);
 app.use("/api", loginRoute);
 app.use("/api/dashboard", dashboardRoute);
+app.use("/app", createTaskRoute);
+app.use("/app", getTasks);
+app.use("/app/tasks", editTask);
+app.use("/app/tasks", updateTask);
+app.use("/app", getTaskStats);
 
 (async () => {
   try {
