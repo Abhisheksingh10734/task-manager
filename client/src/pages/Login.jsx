@@ -31,7 +31,7 @@ const Login = () => {
             toast.success("Login successful");
             console.log(res.data);
 
-                setTimeout(() => navigate("/dashboard"), 500);
+                setTimeout(() => navigate("/app/dashboard"), 500);
 
         } catch (err) {
             toast.error(err.response?.data?.message || "Login failed");
