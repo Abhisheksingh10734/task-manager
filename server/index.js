@@ -11,13 +11,27 @@ import bcrypt from "bcrypt";
 
 const PORT = process.env.PORT || 3000;
 
-const corsOptions = {
-  origin: process.env.CLIENT_URL,
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-  credentials: true,
-};
+// const corsOptions = {
+//   origin: process.env.CLIENT_URL,
+//   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+//   credentials: true,
+// };
 
-app.use(cors(corsOptions));
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
+}));
+
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 app.use(cookieParser());
