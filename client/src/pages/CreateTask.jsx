@@ -159,7 +159,7 @@ const CreateTask = () => {
                                             key={p}
                                             type="button"
                                             onClick={() => setForm(prev => ({ ...prev, priority: p }))}
-                                            className={`py-2.5 rounded-xl text-sm font-bold border transition-all duration-150 active:scale-95
+                                            className={`py-2.5 cursor-pointer rounded-xl text-sm font-bold border transition-all duration-150 active:scale-95
                         ${active
                                                     ? `${c.color} ${c.text} ${c.border} shadow-lg ${c.glow}`
                                                     : 'bg-[#12122a] text-[#6a6a9a] border-[#2e2e5a] hover:border-[#3e3e7a]'
@@ -185,9 +185,13 @@ const CreateTask = () => {
                                 name="date"
                                 value={form.date}
                                 onChange={handleChange}
-                                className={`w-full bg-[#12122a] border rounded-xl px-4 py-3 text-white text-sm focus:outline-none transition-all duration-200
-                  [color-scheme:dark]
-                  ${errors.date ? 'border-red-500 focus:border-red-400' : 'border-[#2e2e5a] focus:border-[#7c6ef0]'}`}
+                                onClick={(e) => e.target.showPicker()}
+                                className={`w-full bg-[#12122a] border rounded-xl px-4 py-3 text-white text-sm focus:outline-none transition-all cursor-pointer duration-200
+    [color-scheme:dark]
+    ${errors.date
+                                        ? 'border-red-500 focus:border-red-400'
+                                        : 'border-[#2e2e5a] focus:border-[#7c6ef0]'
+                                    }`}
                             />
                             {errors.date && <p className="text-red-400 text-xs">{errors.date}</p>}
                         </div>
