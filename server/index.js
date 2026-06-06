@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const clientUrl = process.env.CLIENT_URL?.replace(/\/$/, "");
-console.log("CORS origin set to:", JSON.stringify(clientUrl)); // shows exact value with any hidden chars
+console.log("CORS origin set to:", JSON.stringify(clientUrl));
 
 app.use(cors({
   origin: clientUrl,
@@ -17,7 +17,7 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
 }));
 
-app.options("*", cors({ origin: clientUrl, credentials: true })); // handle preflight
+app.options("/*", cors({ origin: clientUrl, credentials: true })); // ✅ was "*"
 
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
