@@ -52,7 +52,7 @@ const Signup = () => {
             console.log(res.data);
 
             if(res.status === 201 || res.status === 200) {
-                setTimeout(() => navigate("/dashboard"), 500);
+                setTimeout(() => navigate("/app/dashboard"), 500);
             } else {
                 toast.error("Something went wrong.");
             }

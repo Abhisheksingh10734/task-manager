@@ -6,8 +6,11 @@ const db = new pg.Pool({
     database: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
-    max: 10, // optional but recommended
-    idleTimeoutMillis: 30000
+    max: 10,
+    idleTimeoutMillis: 30000,
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
 export default db;
