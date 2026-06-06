@@ -8,21 +8,15 @@ import bcrypt from "bcrypt";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const allowedOrigins = [
-  process.env.CLIENT_URL,
-];
+const clientUrl = process.env.CLIENT_URL?.replace(/\/$/, ""); // strips trailing slash
 
 app.use(cors({
-  origin: process.env.CLIENT_URL,
+  origin: clientUrl,
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
 }));
 
-// const corsOptions = {
-//   origin: process.env.CLIENT_URL,
-//   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-//   credentials: true,
-// };
+app.options("*", cors({ origin: clientUrl, credentials: true })); // handle preflight
 
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
@@ -54,13 +48,10 @@ app.use("/app/tasks", updateComplete);
 (async () => {
   try {
     await db.connect();
-
     console.log("Database Connected Successfully");
-
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
-
   } catch (error) {
     console.log("Database Connection Error:", error);
   }
