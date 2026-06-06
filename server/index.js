@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 const corsOptions = {
   origin: process.env.CLIENT_URL,
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   credentials: true,
 };
 
@@ -31,6 +31,8 @@ import getTasks from "./routes/getTasks.routes.js";
 import editTask from "./routes/editTask.routes.js";
 import updateTask from "./routes/updateTask.routes.js";
 import getTaskStats from "./routes/getTaskStats.routes.js";
+import deleteTask from "./routes/deleteTask.routes.js";
+import updateComplete from "./routes/updateComplete.routes.js";
 
 app.use("/api", signupRoute);
 app.use("/api", loginRoute);
@@ -40,6 +42,8 @@ app.use("/app", getTasks);
 app.use("/app/tasks", editTask);
 app.use("/app/tasks", updateTask);
 app.use("/app", getTaskStats);
+app.use("/app/tasks", deleteTask);
+app.use("/app/tasks", updateComplete);
 
 (async () => {
   try {

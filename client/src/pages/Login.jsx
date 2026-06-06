@@ -108,7 +108,7 @@ const Login = () => {
                         <h2 className="text-gray-500">
                             {loginContent.signupQuery}
                         </h2>
-                        <Link to="/"><h3 className="text-blue-600 cursor-pointer">
+                        <Link to="/signup"><h3 className="text-blue-600 cursor-pointer">
                             {loginContent.signupLinkText}
                         </h3></Link>
                     </div>
