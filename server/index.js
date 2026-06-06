@@ -11,13 +11,14 @@ const PORT = process.env.PORT || 3000;
 const clientUrl = process.env.CLIENT_URL?.replace(/\/$/, "");
 console.log("CORS origin set to:", JSON.stringify(clientUrl));
 
-app.use(cors({
+const corsOptions = {
   origin: clientUrl,
   credentials: true,
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
-}));
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+};
 
-app.options("/*", cors({ origin: clientUrl, credentials: true })); // ✅ was "*"
+app.use(cors(corsOptions)); // ✅ this handles preflight too, no app.options needed
 
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
