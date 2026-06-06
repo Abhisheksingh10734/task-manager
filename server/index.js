@@ -11,6 +11,18 @@ const PORT = process.env.PORT || 3000;
 const clientUrl = process.env.CLIENT_URL?.replace(/\/$/, "");
 console.log("CORS origin set to:", JSON.stringify(clientUrl));
 
+// Manual CORS headers — overrides any proxy interference
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", clientUrl);
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+  next();
+});
+
 const corsOptions = {
   origin: clientUrl,
   credentials: true,
@@ -18,7 +30,7 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"]
 };
 
-app.use(cors(corsOptions)); // ✅ this handles preflight too, no app.options needed
+app.use(cors(corsOptions));
 
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
