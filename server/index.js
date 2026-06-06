@@ -8,7 +8,8 @@ import bcrypt from "bcrypt";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const clientUrl = process.env.CLIENT_URL?.replace(/\/$/, ""); // strips trailing slash
+const clientUrl = process.env.CLIENT_URL?.replace(/\/$/, "");
+console.log("CORS origin set to:", JSON.stringify(clientUrl)); // shows exact value with any hidden chars
 
 app.use(cors({
   origin: clientUrl,
