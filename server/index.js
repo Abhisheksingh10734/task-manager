@@ -2,35 +2,27 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import db from "./db/index.js";
-// import { verifyAuth } from "./middlewares/auth.middlewares.js";
 import cookieParser from "cookie-parser";
-
-const app = express();
-
 import bcrypt from "bcrypt";
 
+const app = express();
 const PORT = process.env.PORT || 3000;
-
-// const corsOptions = {
-//   origin: process.env.CLIENT_URL,
-//   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-//   credentials: true,
-// };
 
 const allowedOrigins = [
   process.env.CLIENT_URL,
 ];
 
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
 }));
+
+// const corsOptions = {
+//   origin: process.env.CLIENT_URL,
+//   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+//   credentials: true,
+// };
 
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
