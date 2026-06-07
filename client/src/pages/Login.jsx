@@ -34,12 +34,10 @@ const Login = () => {
             toast.success("Login successful");
 
             setTimeout(() => navigate("/app/dashboard"), 500);
-            setIsLoading(false);
+            // setIsLoading(false);
 
         } catch (err) {
             toast.error(err.response?.data?.message || "Login failed");
-        } finally {
-            setIsLoading(false);
         }
 
         setFormData({
