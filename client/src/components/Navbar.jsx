@@ -104,9 +104,9 @@ export const Navbar = ({ sectionName, username }) => {
 
           {/* Notification bell */}
           <div className='relative cursor-pointer'>
-            <div className='bg-red-500 w-[18px] h-[18px] absolute -right-1 -top-1 rounded-full font-bold text-[10px] flex items-center justify-center text-white z-10'>
+            {/* <div className='bg-red-500 w-[18px] h-[18px] absolute -right-1 -top-1 rounded-full font-bold text-[10px] flex items-center justify-center text-white z-10'>
               12
-            </div>
+            </div> */}
             <div className='w-9 h-9 rounded-xl bg-[#1e1e40] border border-[#2e2e5a] flex items-center justify-center hover:bg-[#2a2a50] transition'>
               <img src={notification_bell} alt="notifications" className='w-5' />
             </div>

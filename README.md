@@ -4,6 +4,14 @@ TaskFlow is a modern full-stack task management application designed to help use
 
 ---
 
+## Live Demo
+https://taskflow-tbl.vercel.app/
+
+> Try it instantly with the demo account:
+> - **Email:** `abhi@abhi.in`
+> - **Password:** `123456`
+
+
 ## ✨ Features
 
 ### 🔐 Authentication & Security
@@ -240,7 +248,6 @@ Example:
 * Multiple task categories
 * Email reminders
 * User profile management
-* Logout
 
 ---
 
