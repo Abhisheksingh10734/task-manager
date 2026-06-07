@@ -5,11 +5,13 @@ import { api } from "../api/axios";
 import { validateLogin } from "../utils/validateLogin";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import LoginLoader from "../components/Loader";
 
 const Login = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({ email: "", password: "" });
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {
         setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -27,14 +29,17 @@ const Login = () => {
         }
 
         try {
+            setIsLoading(true);
             const res = await api.post("/api/login", formData);
+            setIsLoading(false);
             toast.success("Login successful");
-            console.log(res.data);
 
                 setTimeout(() => navigate("/app/dashboard"), 500);
 
         } catch (err) {
             toast.error(err.response?.data?.message || "Login failed");
+        } finally {
+            setIsLoading(false);
         }
 
         setFormData({
@@ -44,6 +49,10 @@ const Login = () => {
     };
 
     return (
+        <>
+
+        <LoginLoader isLoading={isLoading}/>
+
         <div className="w-screen h-screen flex items-center justify-center inter-font">
 
             {/* FORM WRAPPER */}
@@ -115,6 +124,7 @@ const Login = () => {
                 </div>
             </form>
         </div>
+        </>
     );
 };
 
