@@ -5,7 +5,7 @@ import { signupContent } from '../utils/signupContent';
 import { useState } from 'react';
 import { validateSignup } from '../utils/validateSignup';
 import toast from "react-hot-toast";
-import { Link, useNavigate  } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -25,6 +25,8 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const [isLoading, setIsLoading] = useState(false);
+
 
         const validationErrors = validateSignup(formData);
 
@@ -40,6 +42,7 @@ const Signup = () => {
         }
 
         try {
+            setIsLoading(true)
             const res = await api.post("/api/signup", formData);
 
             toast.success(
@@ -51,7 +54,7 @@ const Signup = () => {
 
             console.log(res.data);
 
-            if(res.status === 201 || res.status === 200) {
+            if (res.status === 201 || res.status === 200) {
                 setTimeout(() => navigate("/app/dashboard"), 500);
             } else {
                 toast.error("Something went wrong.");
@@ -65,6 +68,7 @@ const Signup = () => {
             });
 
         } catch (err) {
+            setIsLoading(false);
             toast.error(
                 err.response?.data?.message ||
                 "Signup failed",
