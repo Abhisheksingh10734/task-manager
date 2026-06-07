@@ -31,10 +31,10 @@ const Login = () => {
         try {
             setIsLoading(true);
             const res = await api.post("/api/login", formData);
-            setIsLoading(false);
             toast.success("Login successful");
 
-                setTimeout(() => navigate("/app/dashboard"), 500);
+            setTimeout(() => navigate("/app/dashboard"), 500);
+            setIsLoading(false);
 
         } catch (err) {
             toast.error(err.response?.data?.message || "Login failed");
