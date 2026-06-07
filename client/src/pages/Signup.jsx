@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { validateSignup } from '../utils/validateSignup';
 import toast from "react-hot-toast";
 import { Link, useNavigate } from 'react-router-dom';
+import SignupLoader from '../components/SignupLoader';
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -86,7 +87,11 @@ const Signup = () => {
     };
 
     return (
-        <div className='w-screen h-screen flex items-center justify-center inter-font'>
+        <>
+
+            <SignupLoader />
+
+            <div className='w-screen h-screen flex items-center justify-center inter-font'>
             <form
                 onSubmit={handleSubmit}
                 className='flex flex-col items-center justify-center px-8 py-2 gap-4 border-1 border-amber-100 rounded-xl'>
@@ -138,6 +143,8 @@ const Signup = () => {
                 </div>
             </form>
         </div>
+        
+        </>
     )
 }
 
