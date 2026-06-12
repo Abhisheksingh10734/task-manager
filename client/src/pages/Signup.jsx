@@ -89,7 +89,7 @@ const Signup = () => {
 
             <SignupLoader isLoading={isLoading} />
 
-            <div className='w-screen h-screen flex items-center justify-center inter-font'>
+            <div className='w-screen h-screen flex items-center justify-center inter-font overflow-hidden'>
                 <form
                     onSubmit={handleSubmit}
                     className='flex flex-col items-center justify-center px-8 py-2 gap-4 border-1 border-amber-100 rounded-xl'>

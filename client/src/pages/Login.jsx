@@ -51,7 +51,7 @@ const Login = () => {
 
         <LoginLoader isLoading={isLoading}/>
 
-        <div className="w-screen h-screen flex items-center justify-center inter-font">
+        <div className="w-screen h-screen flex items-center justify-center inter-font overflow-hidden">
 
             {/* FORM WRAPPER */}
             <form
